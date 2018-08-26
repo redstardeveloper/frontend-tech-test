@@ -11,7 +11,8 @@
     "coverage": "jest --coverage",
     "test:ci": "CI=true jest --env=jsdom --runInBand",
     "precommit": "lint-staged",
-    "prepush": "yarn test:ci"
+    "prepush": "yarn test:ci",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --dev && npm run build"
   },
   "author": "PabloSpaniard",
   "license": "ISC",
