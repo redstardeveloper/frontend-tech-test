@@ -3,8 +3,6 @@ import { Logger, configureConsoleTransport } from 'travix-logger'
 
 import * as constants from './constants'
 
-const port = process.env.PORT || 9001
-
 const logger = new Logger({
   transports: [configureConsoleTransport()],
 })
@@ -29,7 +27,7 @@ const fetchTasksFail = err => {
 export const fetchTasks = () => dispatch => {
   dispatch(fetchTasksStart())
   axios
-    .get(`http://localhost:${port}/tasks`)
+    .get(`/tasks`)
     .then(res => dispatch(fetchTasksSuccess(res.data)))
     .catch(err => dispatch(fetchTasksFail(err)))
 }
@@ -57,7 +55,7 @@ const addTasksFail = err => {
 export const addTask = task => dispatch => {
   dispatch(addTasksStart())
   axios
-    .post(`http://localhost:${port}/task/create/${task.title}/${task.desc}`)
+    .post(`/task/create/${task.title}/${task.desc}`)
     .then(res => dispatch(addTasksSuccess(res)))
     .catch(err => dispatch(addTasksFail(err)))
 }
@@ -86,7 +84,7 @@ const editTaskFail = err => {
 export const editTask = (id, title, desc) => dispatch => {
   dispatch(editTaskStart())
   axios
-    .put(`http://localhost:${port}/task/update/${id}/${title}/${desc}`)
+    .put(`/task/update/${id}/${title}/${desc}`)
     .then(() => dispatch(editTaskSuccess()))
     .catch(err => dispatch(editTaskFail(err)))
 }
@@ -111,7 +109,7 @@ const deleteTaskFail = err => {
 export const deleteTask = id => dispatch => {
   dispatch(deleteTaskStart())
   axios
-    .delete(`http://localhost:${port}/task/delete/${id}`)
+    .delete(`/task/delete/${id}`)
     .then(res => dispatch(deleteTaskSuccess(res, id)))
     .catch(err => dispatch(deleteTaskFail(err)))
 }
